@@ -11,6 +11,11 @@ runner.tar.gz: src/*.c src/Makefile Dockerfile.runner-build
 mir-runner: runner.tar.gz Dockerfile.runner
 	docker build -t mir-runner -f Dockerfile.runner .
 
+.PHONY: push
+push: mir-runner
+	docker tag mir-runner mor1/mir-runner:latest
+	docker push mor1/mir-runner:latest
+
 .PHONY: clean clobber
 clean:
 	$(RM) runner.tar.gz mir-stackv4.tar.gz mir-static_website.tar.gz
